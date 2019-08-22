@@ -18,16 +18,16 @@ namespace restaurant365
             Calculator(user_input);
 
             //Unit tests
-            Console.WriteLine("Unit test: //!\n1,-2\n3\n-4!5,-6");
-            Calculator("//!\n1,-2\n3\n-4!5,-6");
-            Console.WriteLine("Unit test: //!\n123!456!-789!1001!-5000");
-            Calculator("//!\n123!456!-789!1001!-5000");
+            Console.WriteLine("Unit test: //!!!\n1,-2\n3\n-4!!!5,-6");
+            Calculator("//!!!\n1,-2\n3\n-4!!!5,-6");
+            Console.WriteLine("Unit test: //!!\n123!!456!!-789!!1001!!-5000");
+            Calculator("//!!\n123!!456!!-789!!1001!!-5000");
             Console.WriteLine("Unit test: 123");
             Calculator("123");
             Console.WriteLine("Unit test: //*\n3*asdf\n3*abc\n-3*1004");
             Calculator("//*\n3*asdf\n3*abc\n-3*1004");
-            Console.WriteLine("Unit test: //?\n-abc,asdf\nwer?qewr,erer\neee");
-            Calculator("//?\n-abc,asdf\nwer?qewr,erer\neee");
+            Console.WriteLine("Unit test: //????\n-abc,asdf\nwer????qewr,erer\neee");
+            Calculator("//????\n-abc,asdf\nwer????qewr,erer\neee");
             Console.WriteLine("Unit test: -1\n-2\n-3");
             Calculator("-1\n-2\n-3");
 
@@ -45,7 +45,9 @@ namespace restaurant365
             //Check if custom delimiter exists in input
             if (user_in.StartsWith("//"))
             {
-                custom = user_in.Substring(2,1);
+                string[] temp_string = user_in.Split(new string[] {"\n", "\\n"}, 2, StringSplitOptions.None);
+                custom = temp_string[0].Remove(0, 2);
+                user_in = temp_string[1];
             }
 
             //Split string at ',' and '\n' and parse string values into variables
