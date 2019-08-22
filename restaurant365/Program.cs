@@ -40,6 +40,7 @@ namespace restaurant365
             int total = 0;
             int temp_num = 0;
             List<int> negativesList = new List<int>();
+            List<int> numList = new List<int>();
             List<string> delimiterList = new List<string>(new string[] { ",", "\n", "\\n"});
 
             //Check if custom delimiter exists in input
@@ -89,18 +90,27 @@ namespace restaurant365
                 {
                     //Append negative number to list for exception
                     negativesList.Add(temp_num);
+                    //Add 0 to numList
+                    numList.Add(0);
                 }
                 else if(temp_num <= 1000)
                 {
                     //Add it to the current total
                     total += temp_num;
+                    //Add number to numList
+                    numList.Add(temp_num);
+                }
+                else
+                {
+                    //Add 0 to numList
+                    numList.Add(0);
                 }
                 //Set temp num back to 0 in case of invalid input
                 temp_num = 0;
             }
 
             //Write total to console
-            Console.WriteLine("Answer: {0}", total);
+            Console.WriteLine("Answer: {0} = {1}", String.Join("+", numList), total);
             //Write negatives exception to console
             if (negativesList.Count > 0)
             {
