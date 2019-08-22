@@ -18,16 +18,16 @@ namespace restaurant365
             Calculator(user_input);
 
             //Unit tests
-            Console.WriteLine("Unit test: //!!!\n1,-2\n3\n-4!!!5,-6");
-            Calculator("//!!!\n1,-2\n3\n-4!!!5,-6");
-            Console.WriteLine("Unit test: //!!\n123!!456!!-789!!1001!!-5000");
-            Calculator("//!!\n123!!456!!-789!!1001!!-5000");
+            Console.WriteLine("Unit test: //!!!@@###\n1@@-2\n3###-4!!!5,-6");
+            Calculator("//!!!@@###\n1@@-2\n3###-4!!!5,-6");
+            Console.WriteLine("Unit test: //!!*###\n123*456!!-789###1001!!-5000");
+            Calculator("//!!*###\n123*456!!-789###1001!!-5000");
             Console.WriteLine("Unit test: 123");
             Calculator("123");
             Console.WriteLine("Unit test: //*\n3*asdf\n3*abc\n-3*1004");
             Calculator("//*\n3*asdf\n3*abc\n-3*1004");
-            Console.WriteLine("Unit test: //????\n-abc,asdf\nwer????qewr,erer\neee");
-            Calculator("//????\n-abc,asdf\nwer????qewr,erer\neee");
+            Console.WriteLine("Unit test: //????##\n-abc,asdf##wer????qewr,erer????eee");
+            Calculator("//????##\n-abc,asdf##wer????qewr,erer????eee");
             Console.WriteLine("Unit test: -1\n-2\n-3");
             Calculator("-1\n-2\n-3");
 
@@ -39,19 +39,46 @@ namespace restaurant365
             //Variables
             int total = 0;
             int temp_num = 0;
-            string custom = "";
             List<int> negativesList = new List<int>();
+            List<string> delimiterList = new List<string>(new string[] { ",", "\n", "\\n"});
 
             //Check if custom delimiter exists in input
             if (user_in.StartsWith("//"))
             {
                 string[] temp_string = user_in.Split(new string[] {"\n", "\\n"}, 2, StringSplitOptions.None);
-                custom = temp_string[0].Remove(0, 2);
+                temp_string[0] = temp_string[0].Remove(0, 2);
                 user_in = temp_string[1];
+
+                //Go through delimiters and seperate them
+                StringBuilder temp_word = new StringBuilder();
+                temp_word.Append(temp_string[0].Substring(0, 1));
+                for (int i = 1; i < temp_string[0].Length; i++)
+                {
+                    if(temp_string[0].Substring(i, 1) == temp_string[0].Substring(i-1, 1))
+                    {   
+                        //Append char to temporary word 
+                        temp_word.Append(temp_string[0].Substring(i, 1));
+                    }
+                    else if(temp_string[0].Substring(i, 1) != temp_string[0].Substring(i - 1, 1) && temp_string[0].Substring(i, 1) != temp_string[0].Substring(i + 1, 1))
+                    {
+                        //If it is a single char delimiter add it to the delimiter list
+                        delimiterList.Add(temp_string[0].Substring(i, 1));
+                    }
+                    else
+                    {
+                        //Add word to delimiter list
+                        delimiterList.Add(temp_word.ToString());
+                        temp_word.Clear();
+                        //Append char to temporary word 
+                        temp_word.Append(temp_string[0].Substring(i, 1));
+                    }
+                }
+                delimiterList.Add(temp_word.ToString());
+                temp_word.Clear();
             }
 
             //Split string at ',' and '\n' and parse string values into variables
-            string[] nums = user_in.Split(new string[] { ",", "\n", "\\n", custom }, StringSplitOptions.None);
+            string[] nums = user_in.Split(delimiterList.ToArray(), StringSplitOptions.None);
 
             //Loop through array values
             for (int i = 0; i < nums.Length; i++)
