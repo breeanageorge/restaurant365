@@ -11,30 +11,32 @@ namespace restaurant365
         static void Main(string[] args)
         {
             //User input
-            Console.WriteLine("Type any number,number,...:  ");
+            Console.WriteLine("Type any custom delimiter:  ");
+            string custom = Console.ReadLine();
+            Console.WriteLine("Type any set of numbers seperated by , or newline, or your custom delimiter:  ");
             string user_input = Console.ReadLine();
 
             //Call Calculator Function
-            Calculator(user_input);
+            Calculator(user_input, custom);
 
             //Unit tests
-            Console.WriteLine("Unit test: 1,-2\n3\n-4,5,-6");
-            Calculator("1,-2\n3\n-4,5,-6");
-            Console.WriteLine("Unit test: 123,456,-789,1001,-5000");
-            Calculator("123,456,-789,1001,-5000");
+            Console.WriteLine("Unit test: 1,-2\n3\n-4!5,-6");
+            Calculator("1,-2\n3\n-4!5,-6", "!");
+            Console.WriteLine("Unit test: 123!456!-789!1001!-5000");
+            Calculator("123!456!-789!1001!-5000", "!");
             Console.WriteLine("Unit test: 123");
-            Calculator("123");
-            Console.WriteLine("Unit test: 3\nasdf\n3\nabc\n-3\n1004");
-            Calculator("3\nasdf\n3\nabc\n-3");
-            Console.WriteLine("Unit test: -abc,asdf\nwer,qewr,erer\neee");
-            Calculator("-abc,asdf\nwer,qewr,erer\neee");
+            Calculator("123", "");
+            Console.WriteLine("Unit test: 3*asdf\n3*abc\n-3*1004");
+            Calculator("3*asdf\n3*abc\n-3*1004", "*");
+            Console.WriteLine("Unit test: -abc,asdf\nwer?qewr,erer\neee");
+            Calculator("-abc,asdf\nwer?qewr,erer\neee", "?");
             Console.WriteLine("Unit test: -1\n-2\n-3");
-            Calculator("-1\n-2\n-3");
+            Calculator("-1\n-2\n-3", "");
 
             Console.ReadKey();
         }
 
-        public static void Calculator(string user_in)
+        public static void Calculator(string user_in, string custom)
         {
             //Variables
             int total = 0;
@@ -42,7 +44,7 @@ namespace restaurant365
             List<int> negativesList = new List<int>();
 
             //Split string at ',' and '\n' and parse string values into variables
-            string[] nums = user_in.Split(new string[] { ",", "\n", "\\n" }, StringSplitOptions.None);
+            string[] nums = user_in.Split(new string[] { ",", "\n", "\\n", custom }, StringSplitOptions.None);
 
             //Loop through array values
             for (int i = 0; i < nums.Length; i++)
