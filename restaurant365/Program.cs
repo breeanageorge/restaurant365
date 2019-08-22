@@ -20,11 +20,11 @@ namespace restaurant365
             //Unit tests
             Console.WriteLine("Unit test: 1,-2\n3\n-4,5,-6");
             Calculator("1,-2\n3\n-4,5,-6");
-            Console.WriteLine("Unit test: 123,456,-789");
-            Calculator("123,456,-7899");
+            Console.WriteLine("Unit test: 123,456,-789,1001,-5000");
+            Calculator("123,456,-789,1001,-5000");
             Console.WriteLine("Unit test: 123");
             Calculator("123");
-            Console.WriteLine("Unit test: 3\nasdf\n3\nabc\n-3");
+            Console.WriteLine("Unit test: 3\nasdf\n3\nabc\n-3\n1004");
             Calculator("3\nasdf\n3\nabc\n-3");
             Console.WriteLine("Unit test: -abc,asdf\nwer,qewr,erer\neee");
             Calculator("-abc,asdf\nwer,qewr,erer\neee");
@@ -51,9 +51,10 @@ namespace restaurant365
                 Int32.TryParse(nums[i], out temp_num);
                 if (temp_num < 0)
                 {
+                    //Append negative number to list for exception
                     negativesList.Add(temp_num);
                 }
-                else
+                else if(temp_num <= 1000)
                 {
                     //Add it to the current total
                     total += temp_num;
