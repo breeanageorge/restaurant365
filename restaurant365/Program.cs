@@ -11,23 +11,23 @@ namespace restaurant365
         static void Main(string[] args)
         {
             //User input
-            Console.WriteLine("Type any number,number:  ");
+            Console.WriteLine("Type any number,number,...:  ");
             string user_input = Console.ReadLine();
 
             //Call Calculator Function
             Calculator(user_input);
 
             //Unit tests
-            Console.WriteLine("Unit test: 1,2");
-            Calculator("1,2");
-            Console.WriteLine("Unit test: 123,456");
-            Calculator("123,456");
+            Console.WriteLine("Unit test: 1,2,3,4,5,6");
+            Calculator("1,2,3,4,5,6");
+            Console.WriteLine("Unit test: 123,456,789");
+            Calculator("123,456,789");
             Console.WriteLine("Unit test: 123");
             Calculator("123");
-            Console.WriteLine("Unit test: 3,asdf");
-            Calculator("3,asdf");
-            Console.WriteLine("Unit test: abc,asdf");
-            Calculator("abc,asdf");
+            Console.WriteLine("Unit test: 3,asdf,3,abc,3");
+            Calculator("3,asdf,3,abc,3");
+            Console.WriteLine("Unit test: abc,asdf,wer,qewr,erer,eee");
+            Calculator("abc,asdf,wer,qewr,erer,eee");
             Console.WriteLine("Unit test: 1,2,3");
             Calculator("1,2,3");
 
@@ -38,20 +38,21 @@ namespace restaurant365
         {
             //Variables
             int total = 0;
-            int first_num = 0;
-            int second_num = 0;
+            int temp_num = 0;
 
             //Split string at , and parse string values into variables
             string[] nums = user_in.Split(',');
-            Int32.TryParse(nums[0], out first_num);
-            //Check if there are at least 2 items in the array
-            if (nums.Length > 1)
-            {
-                Int32.TryParse(nums[1], out second_num);
-            }
 
-            //Add numbers together
-            total = first_num + second_num;
+            //Loop through array values
+            for (int i = 0; i < nums.Length; i++)
+            {
+                //Set temp num to the value of the current point in array
+                Int32.TryParse(nums[i], out temp_num);
+                //Add it to the current total
+                total += temp_num;
+                //Set temp num back to 0 in case of invalid input
+                temp_num = 0;
+            }
 
             //Write total to console
             Console.WriteLine(total);
