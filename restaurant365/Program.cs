@@ -18,18 +18,18 @@ namespace restaurant365
             Calculator(user_input);
 
             //Unit tests
-            Console.WriteLine("Unit test: 1,2,3,4,5,6");
-            Calculator("1,2,3,4,5,6");
+            Console.WriteLine("Unit test: 1,2\n3\n4,5,6");
+            Calculator("1,2\n3\n4,5,6");
             Console.WriteLine("Unit test: 123,456,789");
             Calculator("123,456,789");
             Console.WriteLine("Unit test: 123");
             Calculator("123");
-            Console.WriteLine("Unit test: 3,asdf,3,abc,3");
-            Calculator("3,asdf,3,abc,3");
-            Console.WriteLine("Unit test: abc,asdf,wer,qewr,erer,eee");
-            Calculator("abc,asdf,wer,qewr,erer,eee");
-            Console.WriteLine("Unit test: 1,2,3");
-            Calculator("1,2,3");
+            Console.WriteLine("Unit test: 3\nasdf\n3\nabc\n3");
+            Calculator("3\nasdf\n3\nabc\n3");
+            Console.WriteLine("Unit test: abc,asdf\nwer,qewr,erer\neee");
+            Calculator("abc,asdf\nwer,qewr,erer\neee");
+            Console.WriteLine("Unit test: 1\n2\n3");
+            Calculator("1\n2\n3");
 
             Console.ReadKey();
         }
@@ -40,8 +40,8 @@ namespace restaurant365
             int total = 0;
             int temp_num = 0;
 
-            //Split string at , and parse string values into variables
-            string[] nums = user_in.Split(',');
+            //Split string at ',' and '\n' and parse string values into variables
+            string[] nums = user_in.Split(new string[] { ",", "\n", "\\n" }, StringSplitOptions.None);
 
             //Loop through array values
             for (int i = 0; i < nums.Length; i++)
@@ -55,7 +55,7 @@ namespace restaurant365
             }
 
             //Write total to console
-            Console.WriteLine(total);
+            Console.WriteLine("Answer: {0}",total);
         }
     }
 }
