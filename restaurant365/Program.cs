@@ -11,37 +11,42 @@ namespace restaurant365
         static void Main(string[] args)
         {
             //User input
-            Console.WriteLine("Type any custom delimiter:  ");
-            string custom = Console.ReadLine();
             Console.WriteLine("Type any set of numbers seperated by , or newline, or your custom delimiter:  ");
             string user_input = Console.ReadLine();
 
             //Call Calculator Function
-            Calculator(user_input, custom);
+            Calculator(user_input);
 
             //Unit tests
-            Console.WriteLine("Unit test: 1,-2\n3\n-4!5,-6");
-            Calculator("1,-2\n3\n-4!5,-6", "!");
-            Console.WriteLine("Unit test: 123!456!-789!1001!-5000");
-            Calculator("123!456!-789!1001!-5000", "!");
+            Console.WriteLine("Unit test: //!\n1,-2\n3\n-4!5,-6");
+            Calculator("//!\n1,-2\n3\n-4!5,-6");
+            Console.WriteLine("Unit test: //!\n123!456!-789!1001!-5000");
+            Calculator("//!\n123!456!-789!1001!-5000");
             Console.WriteLine("Unit test: 123");
-            Calculator("123", "");
-            Console.WriteLine("Unit test: 3*asdf\n3*abc\n-3*1004");
-            Calculator("3*asdf\n3*abc\n-3*1004", "*");
-            Console.WriteLine("Unit test: -abc,asdf\nwer?qewr,erer\neee");
-            Calculator("-abc,asdf\nwer?qewr,erer\neee", "?");
+            Calculator("123");
+            Console.WriteLine("Unit test: //*\n3*asdf\n3*abc\n-3*1004");
+            Calculator("//*\n3*asdf\n3*abc\n-3*1004");
+            Console.WriteLine("Unit test: //?\n-abc,asdf\nwer?qewr,erer\neee");
+            Calculator("//?\n-abc,asdf\nwer?qewr,erer\neee");
             Console.WriteLine("Unit test: -1\n-2\n-3");
-            Calculator("-1\n-2\n-3", "");
+            Calculator("-1\n-2\n-3");
 
             Console.ReadKey();
         }
 
-        public static void Calculator(string user_in, string custom)
+        public static void Calculator(string user_in)
         {
             //Variables
             int total = 0;
             int temp_num = 0;
+            string custom = "";
             List<int> negativesList = new List<int>();
+
+            //Check if custom delimiter exists in input
+            if (user_in.StartsWith("//"))
+            {
+                custom = user_in.Substring(2,1);
+            }
 
             //Split string at ',' and '\n' and parse string values into variables
             string[] nums = user_in.Split(new string[] { ",", "\n", "\\n", custom }, StringSplitOptions.None);
